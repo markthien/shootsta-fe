@@ -8,22 +8,21 @@ const initialState = {
 };
 
 function rootReducer(state = initialState, action) {
-  if (action.type === ADD_VIDEO) {
-    if (!state.videos.includes(action.payload)) {
-      return Object.assign({}, state, {
-        videos: state.videos.concat(action.payload)
-      });
-    }
+  switch (action.type) {
+    case ADD_VIDEO:
+      if (!state.videos.includes(action.payload)) {
+        return Object.assign({}, state, {
+          videos: state.videos.concat(action.payload)
+        });
+      }
+    case SET_VIDEO_TO_PLAY:  
+      return {
+        ...state,
+        videoToPlay: action.payload,
+      }    
+    default:
+      return state;
   }
-
-  if (action.type === SET_VIDEO_TO_PLAY) {
-    return {
-      ...state,
-      videoToPlay: action.payload,
-    }
-  }
-
-  return state;
 };
 
 export default rootReducer;

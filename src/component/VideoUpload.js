@@ -4,9 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { useDispatch } from "react-redux";
-import { addVideo, setVideoToPlay } from "../actions/index";
-import axios from 'axios';
-import { BASE_URL } from '../config.js';
+import { uploadVideo } from "../actions/index";
 
 const StyledDivRoot = styled.div`
   padding: 15px;
@@ -30,18 +28,7 @@ const VideoUpload = () => {
   const dispatch = useDispatch();
 
   const onChangeHandler = event => {
-    const file = event.target.files[0];
-    const data = new FormData();
-    data.append('file', file);
-
-    axios.post(BASE_URL + 'upload', data, {}).then(res => {
-      dispatch(addVideo(file.name));
-    }).catch((error) => {
-      console.log(error);
-    })
-    .finally(() => {
-      dispatch(setVideoToPlay(file.name));
-    });
+    dispatch(uploadVideo(event.target.files[0]));
   }
 
   return (

@@ -8,9 +8,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import { setVideoToPlay } from "../actions/index";
-import axios from 'axios';
-import { BASE_URL } from '../config.js';
-import { addVideo } from "../actions/index";
+import { getVideo } from "../actions/index";
 
 const StyledDivRoot = styled.div`
   padding: 15px;
@@ -22,12 +20,7 @@ const VideoList = ({ videos }) => {
   
   // did mount
   useEffect(() => {
-    axios.get(BASE_URL + 'allVideo').then((response) => {
-      dispatch(addVideo(response.data));
-    }).catch((error) => {
-      console.error(error);
-    }).finally(() => {
-    });
+    dispatch(getVideo());
   }, []);
 
   const useStyles = makeStyles(theme => ({
